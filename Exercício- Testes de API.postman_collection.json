@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "f2600849-03c9-41f9-96e7-ba186b8b352c",
+		"name": "Exercício: Testes de API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27326123"
+	},
+	"item": [
+		{
+			"name": "Consulta usuarios id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Consultar usuário\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Lucas Jardim\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios/u4SPZOuCeeY2FWpS",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"u4SPZOuCeeY2FWpS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro de usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Validar cadastro de usuário\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Fernanda Jardim\",\r\n  \"email\": \"fernanda.jardim@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios",
+					"host": [
+						"{{local}}usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios",
+					"host": [
+						"{{local}}usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluindo usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios/0uxuPY0cbmQhpEz1",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"0uxuPY0cbmQhpEz1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alteracao de usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Confirmação de alteração de cadastro\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro alterado com sucesso\");\r",
+							"});\r",
+							"pm.test(\"Tempo de resposta do sistema menor que 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Lucas Silva e Silva\",\r\n  \"email\": \"mundodalua01@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/9CtZGUgFYCpryNaq",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"9CtZGUgFYCpryNaq"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cenario negativo - PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Erro de cenário de cadastro\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Lucas Jardim\",\r\n  \"email\": \"fernanda.jardim@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/u4SPZOuCeeY2FWpS",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"u4SPZOuCeeY2FWpS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cenario negativo - GET - usuario nao encontrado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Validar cenário negativo - Usuário não encontrado\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Usuário não encontrado\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios/RySPEEstRcx7BYDo",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"RySPEEstRcx7BYDo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
